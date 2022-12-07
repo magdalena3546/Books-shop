@@ -9,6 +9,7 @@ import {
 } from 'react-redux';
 import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/global.scss'
 
 ReactDOM.render( 
   <React.StrictMode >

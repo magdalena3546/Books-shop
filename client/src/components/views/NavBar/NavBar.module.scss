@@ -1,0 +1,14 @@
+@import '../../../styles/settings.scss';
+
+.navBar {
+    background-color: $color-two;
+    padding: 0 2%;
+    height: 8vh;
+}
+
+.brand {
+    font-size: 25px;
+    letter-spacing: 2px;
+    font-family: $font_headers;
+    font-weight: 700;
+}

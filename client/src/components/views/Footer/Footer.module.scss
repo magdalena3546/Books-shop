@@ -1,0 +1,30 @@
+@import '../../../styles/settings.scss';
+
+.footer {
+    background-color: $color_two;
+    display: flex;
+
+    .icons{
+        margin-left: 4%;
+        width: 10%;
+        .icon {
+            width: 40px;
+            height: 40px;
+            margin: 2%;
+            border-radius: 90%;
+            background-color: $color_three;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            &:hover{
+                transition: $transition;
+                background-color: $color_one;
+                color: $color_three;
+            }
+        }
+    }
+
+    .text {
+        margin: 0 auto;
+    }
+}
