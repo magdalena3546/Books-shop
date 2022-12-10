@@ -8,6 +8,6 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new LoggerInterceptor());
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 8000);
 }
 bootstrap();
