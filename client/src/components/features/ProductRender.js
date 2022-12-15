@@ -16,7 +16,7 @@ const ProductRender = () => {
             </Spinner>
             )}
             <Row>
-                {books.map(book => <Col md="3" key={book.id}><ProductDescription {...books} /></Col>)}
+                {books.map(book => <Col md="3" key={book.id}><ProductDescription {...book} /></Col>)}
             </Row>
         </>
     )
