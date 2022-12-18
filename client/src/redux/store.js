@@ -8,10 +8,12 @@ import BooksReducer from './booksRedux';
 import initialState from './initialState';
 import thunk from 'redux-thunk';
 import CartReducer from './cartRedux';
+import OrdersReducer from './ordersRedux';
 
 const subreducers = {
     books: BooksReducer,
-    cart: CartReducer
+    cart: CartReducer,
+    orders: OrdersReducer
 };
 
 const reducer = combineReducers(subreducers);

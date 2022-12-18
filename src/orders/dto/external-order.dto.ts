@@ -7,8 +7,9 @@ import {
   Min,
   IsEnum,
   IsDate,
+  IsEmail,
 } from 'class-validator';
-import { ExternalUserDto } from 'src/users/dto/external-user.dto';
+import { Column } from 'typeorm';
 import { Statuses } from '../enums/statuses.enum';
 
 export class ExternalOrderDto {
@@ -20,9 +21,24 @@ export class ExternalOrderDto {
   @Type(() => ExternalOrderProductDto)
   orderProducts: Array<ExternalOrderProductDto>;
 
-  @ValidateNested({ each: true })
-  @Type(() => ExternalUserDto)
-  user: ExternalUserDto;
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  city: string;
+
+  @IsNotEmpty()
+  street: string;
+
+  @IsNotEmpty()
+  number: number;
 
   @IsDate()
   createdAt: Array<number>;
@@ -32,17 +48,21 @@ export class ExternalOrderDto {
 
   @IsNumber()
   @Min(1)
-  price: number;
+  totalPrice: number;
 }
 
 export class ExternalOrderProductDto {
+  @IsNotEmpty()
+  @IsUUID()
+  id: string;
+
   @IsNotEmpty()
   @IsUUID()
   productId: string;
 
   @IsNotEmpty()
   @IsUUID()
-  orderProductId: string;
+  orderId: string;
 
   @IsNotEmpty()
   productName: string;
@@ -53,4 +73,10 @@ export class ExternalOrderProductDto {
 
   @IsNumber()
   price: number;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  addInfo: string;
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProductRepository } from 'src/products/db/product.repository';
 import { Product } from 'src/products/db/products.entity';
-import { User } from 'src/users/db/users.entity';
 import { DataSource } from 'typeorm';
 import { OrderProduct } from './db/order-products.entity';
 import { OrderProductRepository } from './db/order-products.repository';
@@ -33,9 +32,9 @@ export class OrdersDataService {
       orderProduct.product = new Product();
       orderProduct.product.id = productDb.id;
       orderProduct.product.name = productDb.name;
-      orderProduct.product.count = productDb.count;
-      orderProduct.product.price = productDb.price;
-      orderProduct.product.description = productDb.description;
+      orderProduct.count = product.count;
+      orderProduct.price = productDb.price;
+      orderProduct.addInfo = product.addInfo;
 
       await this.orderProductRepository.save(orderProduct);
       orderProducts.push(orderProduct);
@@ -50,25 +49,17 @@ export class OrdersDataService {
   async addOrder(newOrder: CreateOrderDto): Promise<Order> {
     return this.dataSource.transaction(async () => {
       const orderToSave = new Order();
-
-      orderToSave.user = new User();
-      orderToSave.user.firstName = newOrder.user.firstName;
-      orderToSave.user.lastName = newOrder.user.lastName;
-      orderToSave.user.email = newOrder.user.email;
-      orderToSave.user.city = newOrder.user.city;
-      orderToSave.user.street = newOrder.user.street;
-      orderToSave.user.number = newOrder.user.number;
+      orderToSave.firstName = newOrder.firstName;
+      orderToSave.lastName = newOrder.lastName;
+      orderToSave.email = newOrder.email;
+      orderToSave.city = newOrder.city;
+      orderToSave.street = newOrder.street;
+      orderToSave.number = newOrder.number;
       orderToSave.status = Statuses.NEW;
       orderToSave.orderProducts = await this.saveOrderProducts(
         newOrder.orderProducts,
       );
-      orderToSave.addInfo = newOrder.addInfo;
-      orderToSave.price = 0;
-
-      orderToSave.orderProducts.forEach((elm) => {
-        orderToSave.price += elm.price * elm.count;
-        return orderToSave.price;
-      });
+      orderToSave.totalPrice = newOrder.totalPrice;
       return await this.orderRepository.save(orderToSave);
     });
   }

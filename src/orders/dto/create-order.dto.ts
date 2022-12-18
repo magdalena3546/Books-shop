@@ -5,8 +5,8 @@ import {
   IsUUID,
   ValidateNested,
   Min,
+  IsEmail,
 } from 'class-validator';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { Column } from 'typeorm';
 
 export class CreateOrderDto {
@@ -14,15 +14,31 @@ export class CreateOrderDto {
   @Type(() => CreateOrderProductDto)
   orderProducts: Array<CreateOrderProductDto>;
 
-  @ValidateNested({ each: true })
-  @Type(() => CreateUserDto)
-  user: CreateUserDto;
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsNotEmpty()
+  city: string;
+
+  @IsNotEmpty()
+  street: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  number: number;
 
   @Column({
-    type: 'text',
-    nullable: true,
+    default: 0,
+    type: 'float',
   })
-  addInfo: string;
+  totalPrice: number;
 }
 
 export class CreateOrderProductDto {
@@ -30,7 +46,19 @@ export class CreateOrderProductDto {
   @IsUUID()
   productId: string;
 
+  @IsNotEmpty()
+  name: string;
+
   @IsNumber()
   @Min(1)
   count: number;
+
+  @IsNumber()
+  price: number;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  addInfo: string;
 }

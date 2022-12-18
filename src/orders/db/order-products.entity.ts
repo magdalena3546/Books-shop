@@ -1,12 +1,5 @@
 import { Product } from 'src/products/db/products.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Order } from './orders.entity';
 
 @Entity({
@@ -18,7 +11,6 @@ export class OrderProduct {
 
   @ManyToOne(() => Product, (product) => product.id, {
     eager: true,
-    onDelete: 'CASCADE',
   })
   product: Product;
 
@@ -33,14 +25,12 @@ export class OrderProduct {
   })
   count: number;
 
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
-
-  @ManyToOne(() => Order, (order) => order.id, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => Order, (order) => order.id)
   order: Order;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  addInfo: string;
 }

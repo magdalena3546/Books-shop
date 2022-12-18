@@ -24,35 +24,32 @@ export class OrdersController {
   }
 
   @Get()
-  getAllOrders(): Promise<Order[]> {
-    return this.orderService.getAllOrders();
+  async getAllOrders(): Promise<ExternalOrderDto[]> {
+    const ordersArray = await this.orderService.getAllOrders();
+    return ordersArray.map((elm) => this.mapOrderToExternal(elm));
   }
 
   @Post()
-  async addOrder(@Body() item: CreateOrderDto): Promise<ExternalOrderDto> {
-    return this.mapOrderToExternal(await this.orderService.addOrder(item));
+  async addOrder(@Body() item: CreateOrderDto): Promise<Order> {
+    return await this.orderService.addOrder(item);
   }
 
   mapOrderToExternal(order: Order): ExternalOrderDto {
-    // const user = {
-    //   firstName: order.user.firstName,
-    //   lastName: order.user.lastName,
-    //   email: order.user.email,
-    //   address: order.user.address,
-    // };
     return {
       ...order,
-      user: order.user,
       createdAt: dateToArray(order.createdAt),
 
       orderProducts: order.orderProducts.map((elm) => {
-        return {
-          orderProductId: elm.id,
+        const orderProduct = {
+          id: elm.id,
           productId: elm.product.id,
           productName: elm.product.name,
-          count: elm.product.count,
-          price: elm.product.price,
+          count: elm.count,
+          price: elm.price,
+          addInfo: elm.addInfo,
+          orderId: order.id,
         };
+        return orderProduct;
       }),
     };
   }

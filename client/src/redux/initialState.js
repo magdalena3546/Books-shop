@@ -1,6 +1,7 @@
 const initialState = {
     books: [],
-    cart: []
+    cart: [],
+    orders: []
 }
 
 export default initialState;

@@ -7,29 +7,55 @@ import { IMGS_URL } from '../../../config';
 import Carousel from 'react-bootstrap/Carousel';
 import { getBookById } from "../../../redux/booksRedux";
 import shortid from "shortid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './Product.module.scss';
-import { addToCart} from "../../../redux/cartRedux";
+import { addToCart, editProductCart} from "../../../redux/cartRedux";
 import Modal from 'react-bootstrap/Modal';
+import AmountWidget from "../../features/AmountWidget/AmountWidget";
 
 const Product = () => {
     const {id} = useParams();
     const productData = useSelector(state => getBookById(state, id));
-    const [countProduct, setCountProduct] = useState(0);
+    const [count, setCount] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(0)
     const [show, setShow] = useState(false);
     
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (productData) {
+            setTotalPrice(product.price * count);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [productData, count]);
+
+    let product = null;
+
+    if (productData) {
+        product = {
+            name: productData.name,
+            count: parseInt(count),
+            price: productData.price,
+            productId: productData.id,
+            totalPrice: productData.price * parseInt(count),
+            additionalInformation: ''
+        };
+    }
 
     const handleClick = (e) => {
         e.preventDefault();
-        const product = {
-            name: productData.name,
-            price: productData.price,
-            count: countProduct
-        }
         dispatch(addToCart(product));
         setShow(true);
+    }
+
+    const handleCountChange = (newCount) => {
+        setCount(newCount);
+        dispatch(editProductCart({
+            id: productData.id,
+            count: newCount,
+            price: productData.price * newCount
+        }),
+        );
     }
 
     if(!productData) return <Navigate to ="/" />
@@ -48,12 +74,11 @@ const Product = () => {
                 </Carousel>
                 </Col>
                 <Col md={7}>
-                    <Card.Text className='my-4'><strong>Price:</strong> {productData.price}</Card.Text>
+                    <Card.Text className='my-4'><strong>Price:</strong> {totalPrice}</Card.Text>
                     <Card.Text className='my-4'>{productData.description}</Card.Text>
                 </Col>
+                <Col md={7}><AmountWidget count = {count} handleCountChange = {handleCountChange} /></Col>
                 <Col md={6}>
-                    <span>count: </span>
-                    <input className = {styles.input} onChange = {e => setCountProduct(e.target.value)} type='number' min='0' max='10'></input>
                     <Button onClick = {handleClick} className='mx-2' variant="outline-dark">Ad to cart</Button>
                 </Col>
             </Row>

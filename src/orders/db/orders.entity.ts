@@ -1,4 +1,3 @@
-import { User } from 'src/users/db/users.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  ManyToOne,
 } from 'typeorm';
 import { Statuses } from '../enums/statuses.enum';
 import { OrderProduct } from './order-products.entity';
@@ -26,26 +24,33 @@ export class Order {
 
   @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order, {
     eager: true,
+    cascade: true,
   })
   orderProducts: OrderProduct[];
 
-  @ManyToOne(() => User, (user) => user.id, {
-    eager: true,
-    onDelete: 'CASCADE',
-  })
-  user: User;
+  @Column({ length: 50 })
+  firstName: string;
+
+  @Column({ length: 50 })
+  lastName: string;
+
+  @Column({ length: 50 })
+  email: string;
+
+  @Column({ length: 50 })
+  city: string;
+
+  @Column({ length: 50 })
+  street: string;
+
+  @Column({ default: 1, type: 'int' })
+  number: number;
 
   @Column({
     default: 0,
     type: 'float',
   })
-  price: number;
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  addInfo: string;
+  totalPrice: number;
 
   @Column('enum', {
     enum: Statuses,
