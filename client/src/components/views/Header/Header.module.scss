@@ -1,0 +1,45 @@
+@import '../../../styles/settings.scss';
+
+.image {
+    display: block;
+    width: auto;
+    height: 70vh;
+
+}
+
+.text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .title {
+        font-family: $font_headers;
+        color: #2d2a2a;
+        letter-spacing: 4px;
+        font-weight: 700;
+        font-size: 50px;
+    }
+
+    .subtitle {
+        letter-spacing: 2px;
+        color: $color_one;
+    }
+}
+
+.aside{
+    .box{
+        margin: 6% 0;
+        overflow: hidden;
+
+        .background{
+            display: block;
+            height: 32vh;
+            width: 40vh;
+            transition: $transition;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+   
+    }
+}

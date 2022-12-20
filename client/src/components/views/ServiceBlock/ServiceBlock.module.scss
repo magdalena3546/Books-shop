@@ -1,0 +1,12 @@
+@import '../../../styles/settings.scss';
+
+.container{
+    margin: 4% auto 5% auto;
+    .icon {
+        font-size: 40px;
+        transition: $transition;
+        &:hover {
+            color: $color_one;
+        }
+    }
+}

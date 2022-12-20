@@ -9,7 +9,7 @@ import { getBookById } from "../../../redux/booksRedux";
 import shortid from "shortid";
 import { useEffect, useState } from "react";
 import styles from './Product.module.scss';
-import { addToCart, editProductCart} from "../../../redux/cartRedux";
+import { addCartLocalStorage, addToCart, editProductCart} from "../../../redux/cartRedux";
 import Modal from 'react-bootstrap/Modal';
 import AmountWidget from "../../features/AmountWidget/AmountWidget";
 
@@ -44,7 +44,7 @@ const Product = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        dispatch(addToCart(product));
+        dispatch(addCartLocalStorage(product));
         setShow(true);
     }
 
@@ -65,7 +65,7 @@ const Product = () => {
             <Card.Title className='my-4' as='h1'>{productData.name}</Card.Title>
             
             <Row className='justify-content-between'>
-                <Col md={7}>
+                <Col md={6}>
                 <Carousel slide={false}>
                     <Carousel.Item>
                         <img className={styles.image} src={IMGS_URL + productData.mainImage} alt=''/>

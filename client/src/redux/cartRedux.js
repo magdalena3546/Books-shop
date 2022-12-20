@@ -16,10 +16,13 @@ const EDIT_PRODUCT_CART_INFO = createActionName('EDIT_PRODUCT_CART_INFO')
 const REMOVE_PRODUCT = createActionName('REMOVE_PRODUCT');
 const CLEAR_CART = createActionName('CLEAR_CART');
 
-export const addToCart = payload => ({
+export const addToCart = payload => (
+    {
     payload,
     type: ADD_TO_CART
-})
+    }
+
+);
 
 export const editProductCart = payload => ({
     type: EDIT_PRODUCT_CART,
@@ -31,11 +34,24 @@ export const editProductCartInfo = payload => ({
     payload
 });
 
+let cart = localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')) : [];
+export const addCartLocalStorage = (product) => {
+    return(dispatch) => {
+        dispatch(addToCart(product))
+        try {
+            cart.push(product);
+            } catch (e) {
+                console.log('getError', e.message);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+    }
+}
+
 export const removeProduct = payload =>({payload, type: REMOVE_PRODUCT});
 
 export const clearCart = () =>({type: CLEAR_CART});
 
-const CartReducer = (statePart = [], action) => {
+const CartReducer = (statePart = cart, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             return [...statePart, {

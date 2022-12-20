@@ -31,6 +31,7 @@ const OrderForm = () => {
             for(let elm of cart) {
                 const product = {
                     productId: elm.productId,
+                    name: elm.name,
                     count: elm.count,
                     price: elm.price,
                     addInfo: elm.additionalInformation
@@ -63,6 +64,7 @@ const OrderForm = () => {
         dispatch(addOrder(orderData));
         fetch(`${API_URL}/orders`, options);
         dispatch(clearCart());
+        localStorage.removeItem('cart');
         navigate('/');
     };
 
