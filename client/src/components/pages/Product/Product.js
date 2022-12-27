@@ -33,6 +33,7 @@ const Product = () => {
 
     if (productData) {
         product = {
+            id: shortid.generate(),
             name: productData.name,
             count: parseInt(count),
             price: productData.price,
@@ -84,9 +85,9 @@ const Product = () => {
             </Row>
         </Card>
         <Modal size="sm" show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-        </Modal.Header>
-        <Modal.Body>Added to cart!</Modal.Body>
+            <Modal.Header closeButton>
+            </Modal.Header>
+            <Modal.Body>Added to cart!</Modal.Body>
       </Modal>
     </Container>
     )

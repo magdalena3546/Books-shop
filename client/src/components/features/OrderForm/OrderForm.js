@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Button, Container, Form } from "react-bootstrap";
+import { Row, Button, Container, Form, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch} from "react-redux";
 import {
@@ -20,9 +20,10 @@ const OrderForm = () => {
     const [city, setCity] = useState('');
     const [street, setStreet] = useState('');
     const [number, setNumber] = useState(null);
-    const cart = useSelector(getAllCartOrders);
+    const cart =  JSON.parse(localStorage.getItem('cart')) || [];
     const dispatch = useDispatch();
     let navigate = useNavigate('/');
+    const [show, setShow] = useState(false);
 
     const handleSubmit = () => {
         let productsInfo = [];
@@ -65,9 +66,8 @@ const OrderForm = () => {
         fetch(`${API_URL}/orders`, options);
         dispatch(clearCart());
         localStorage.removeItem('cart');
-        navigate('/');
+        setShow(true);
     };
-
    
     return (
         <Container className="col-12 col-sm-3 mx-auto my-4 justify-content-center">
@@ -101,6 +101,11 @@ const OrderForm = () => {
                 </Form.Group>
                 <Button variant="dark" type="submit">Order</Button>
             </form>
+            <Modal size="sm" show={show} onHide={() => setShow(false)}>
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>Order send</Modal.Body>
+            </Modal>
         </Container> 
     )
 };

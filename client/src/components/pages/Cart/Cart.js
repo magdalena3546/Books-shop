@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { getAllCartOrders } from "../../../redux/cartRedux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCartOrders, loadProductsCart } from "../../../redux/cartRedux";
 import CartOrderRender from "../../features/CartOrderRender.js/CartOrderRender";
 
 const Cart = () => {
-    const [cartOrders, setCartOrders] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+    const cartOrders = JSON.parse(localStorage.getItem('cart')) || [];
+    const dispatch = useDispatch();
+
     if (cartOrders.length !== 0) { 
     return (<CartOrderRender cartOrders={cartOrders}/>)
     }

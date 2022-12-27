@@ -1,7 +1,7 @@
 import {
     API_URL
 } from '../config';
-import shortid from 'shortid';
+
 
 export const getAllCartOrders = ({
     cart
@@ -15,6 +15,7 @@ const EDIT_PRODUCT_CART = createActionName('EDIT_PRODUCT_CART')
 const EDIT_PRODUCT_CART_INFO = createActionName('EDIT_PRODUCT_CART_INFO')
 const REMOVE_PRODUCT = createActionName('REMOVE_PRODUCT');
 const CLEAR_CART = createActionName('CLEAR_CART');
+const LOAD_PRODUCTS_CART = createActionName('LOAD_PRODUCTS_CART');
 
 export const addToCart = payload => (
     {
@@ -23,6 +24,11 @@ export const addToCart = payload => (
     }
 
 );
+
+export const loadProductsCart = (payload) => ({
+    payload,
+    type: LOAD_PRODUCTS_CART
+});
 
 export const editProductCart = payload => ({
     type: EDIT_PRODUCT_CART,
@@ -47,16 +53,31 @@ export const addCartLocalStorage = (product) => {
     }
 }
 
+
 export const removeProduct = payload =>({payload, type: REMOVE_PRODUCT});
+
+export const removeProductFromLocalStorage = (id) => {
+    return (dispatch) => {
+         dispatch(removeProduct(id));
+    try {
+        const filtered = cart.filter(item => item.id !== id)
+        console.log(filtered);
+        localStorage.setItem('cart', JSON.stringify(filtered));
+    } catch (e) {
+        console.log('getError', e.message);
+    }
+}
+}
 
 export const clearCart = () =>({type: CLEAR_CART});
 
 const CartReducer = (statePart = cart, action) => {
     switch (action.type) {
+        case LOAD_PRODUCTS_CART:
+            return [...action.payload];
         case ADD_TO_CART:
             return [...statePart, {
-                ...action.payload,
-                id: shortid.generate()
+                ...action.payload
             }];
         case EDIT_PRODUCT_CART:
             return statePart.map(elm => (elm.id === action.payload.id ? {...elm,  count: action.payload.count,

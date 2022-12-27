@@ -6,7 +6,7 @@ const CartOrderRender = ({cartOrders}) => {
 
     return(
         <Container className="col-12 col-sm-3 mx-auto my-4 justify-content-center">
-            {cartOrders.map(elm => <CartOrder key = {elm.productId} {...elm}/>)}
+            {cartOrders.map(elm => <CartOrder key = {elm.id} {...elm} id = {elm.id} />)}
             <Button as = {Link} to = '/order' variant="dark" type="submit">Buy</Button>
        </Container>
     )

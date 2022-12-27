@@ -7,8 +7,9 @@
 }
 
 .brand {
-    font-size: 25px;
+    font-size: 40px;
     letter-spacing: 2px;
-    font-family: $font_headers;
+    font-family: $font_logo;
     font-weight: 700;
+    transition: $transition;
 }

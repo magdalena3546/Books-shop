@@ -7,7 +7,7 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 const NavBar = () => {
   return (
     <Navbar className={styles.navBar}>
-        <NavLink className={styles.brand} to="/">Bookshop</NavLink>
+        <NavLink className={styles.brand} to="/">Bookworm</NavLink>
         <Nav className="ms-auto px-2">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/categories">Categories</NavLink>

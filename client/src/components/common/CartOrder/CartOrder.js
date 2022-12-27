@@ -1,9 +1,9 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Card, Form, Button } from "react-bootstrap"
-import { useDispatch } from "react-redux";
-import { editProductCart, editProductCartInfo, removeProduct } from "../../../redux/cartRedux";
+import { Card, Form, Button, Modal } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux";
+import { editProductCart, editProductCartInfo, getAllCartOrders, removeProduct, removeProductFromLocalStorage } from "../../../redux/cartRedux";
 import AmountWidget from "../../features/AmountWidget/AmountWidget";
 
 const CartOrder = (props) => {
@@ -11,11 +11,11 @@ const CartOrder = (props) => {
     const [count, setCount] = useState(props.count);
         
     const dispatch = useDispatch();
+   
+    const [show, setShow] = useState(false);
     
-
     useEffect(() => {
        dispatch(editProductCartInfo({ id: props.id, additionalInformation: additionalInformation}));
-    
     }, [additionalInformation, dispatch, props.id]);
 
     const handleCountChange = (newCount) => {
@@ -29,12 +29,14 @@ const CartOrder = (props) => {
         );
     }
 
-    const handleRemove = e => {
+      const handleRemove = (e) => {
         e.preventDefault();
-        dispatch(removeProduct(props.id));
+        dispatch(removeProductFromLocalStorage(props.id));
+        setShow(true);
     }
 
     return(
+        <>
         <Card className="my-2">
             <Card.Body>
                 <Card.Title>{props.name}</Card.Title>
@@ -49,7 +51,13 @@ const CartOrder = (props) => {
                 </Form.Group>
                 <Button variant="danger" onClick={handleRemove}><FontAwesomeIcon icon={faTrash}/></Button>
             </Card.Body>
+            <Modal size="sm" show={show} onHide={() => setShow(false)}>
+            <Modal.Header closeButton>
+            </Modal.Header>
+            <Modal.Body>Product remove! Please refresh!</Modal.Body>
+        </Modal>
         </Card> 
+        </>
     )
 }
 
