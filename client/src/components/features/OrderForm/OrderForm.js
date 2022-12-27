@@ -1,14 +1,7 @@
 import { useState } from "react";
-import { Row, Button, Container, Form, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Row, Button, Container, Form, Spinner, Alert } from "react-bootstrap";
 import { useDispatch} from "react-redux";
-import {
-    useSelector
-} from "react-redux";
-import {
-    clearCart,
-    getAllCartOrders
-} from '../../../redux/cartRedux';
+import {clearCart} from '../../../redux/cartRedux';
 import OrderProductSummary from '../../common/OrderProductSummary/OrderProductSummary';
 import { addOrder } from "../../../redux/ordersRedux";
 import { API_URL } from "../../../config";
@@ -22,8 +15,7 @@ const OrderForm = () => {
     const [number, setNumber] = useState(null);
     const cart =  JSON.parse(localStorage.getItem('cart')) || [];
     const dispatch = useDispatch();
-    let navigate = useNavigate('/');
-    const [show, setShow] = useState(false);
+    const [status, setStatus] = useState(null);
 
     const handleSubmit = () => {
         let productsInfo = [];
@@ -63,10 +55,22 @@ const OrderForm = () => {
             })
         };
         dispatch(addOrder(orderData));
-        fetch(`${API_URL}/orders`, options);
-        dispatch(clearCart());
-        localStorage.removeItem('cart');
-        setShow(true);
+        setStatus('loading');
+        
+        fetch(`${API_URL}/orders`, options)
+     
+            .then(res => {
+                if(res.status === 201) {
+                    setStatus('success');
+                    dispatch(clearCart());
+                    localStorage.removeItem('cart');
+                } else if(res.status === 400){
+                    setStatus('clientError');
+                }
+                else{
+                    setStatus('serverError');
+                }
+            });
     };
    
     return (
@@ -75,6 +79,35 @@ const OrderForm = () => {
                 {cart.map(elm => <OrderProductSummary key={elm.id} {...elm} />)}
             </Row>
             <form onSubmit={handleSubmit}>
+
+                {status==='success' && (
+                <Alert variant="success">
+                    <Alert.Heading>Success!</Alert.Heading>
+                    <p>Your order was send</p>
+                </Alert>
+                )}
+
+                {status ==='serverError' && (
+                <Alert variant="danger">
+                    <Alert.Heading>Something went wrong...</Alert.Heading>
+                    <p>Unexpected error...Try again!</p>
+                </Alert>
+                )}
+
+                {status==='clientError' &&( 
+                <Alert variant="danger">
+                        <Alert.Heading>Not enough data</Alert.Heading>
+                        <p>You have to fill all the fields.</p>
+                    </Alert>
+                    )}
+
+
+                {status === 'loading' && (
+                <Spinner animation="border" role="status" className="d-block mx-auto">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+                )}
+                
                 <Form.Group className="mb-3">
                     <Form.Label>First name:</Form.Label>
                     <Form.Control placeholder="First name" value = {firstName} onChange = {e => setFirstName(e.target.value)} />
@@ -101,11 +134,6 @@ const OrderForm = () => {
                 </Form.Group>
                 <Button variant="dark" type="submit">Order</Button>
             </form>
-            <Modal size="sm" show={show} onHide={() => setShow(false)}>
-                <Modal.Header closeButton>
-                </Modal.Header>
-                <Modal.Body>Order send</Modal.Body>
-            </Modal>
         </Container> 
     )
 };

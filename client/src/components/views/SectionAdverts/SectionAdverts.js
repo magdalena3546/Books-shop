@@ -7,6 +7,7 @@ const SectionAdverts = () => {
     const advert2 = 'advert2.jpg';
     return(
         <Container className={styles.container}>
+            <h2>Promotions</h2>
             <Row>
                 <Col md={6}>
                     <div className={styles.box}>
