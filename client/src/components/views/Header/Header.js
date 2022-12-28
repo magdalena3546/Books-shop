@@ -10,7 +10,7 @@ const Header = () => {
     return(
         <Container className='my-4'>
         <Row>
-            <Col className={styles.aside} md= {3}>
+            <Col className={styles.aside} md= {4} sm={4} lg = {3}>
                 <div className={styles.box}>
                     <img className={styles.background} src={IMGS_URL + header3} alt="Red book"/>
                 </div>
@@ -18,7 +18,7 @@ const Header = () => {
                     <img className={styles.background} src={IMGS_URL + header4} alt="Book cover"/>
                 </div>
             </Col>
-            <Col md= {8} className='offset-1'>
+            <Col sm= {3} md= {8} lg= {{span: 8, offset: 1}}>
                 <Carousel>
                     <Carousel.Item>
                         <img

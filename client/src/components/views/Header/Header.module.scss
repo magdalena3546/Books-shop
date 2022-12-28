@@ -43,3 +43,41 @@
    
     }
 }
+
+
+@media (min-width: 320px) and (max-width: 500px) {
+    .image {
+        width: auto;
+        height: 40vh;
+    }
+    .text{
+        .title{
+            font-size: 25px;
+        }
+        .subtitle{
+            font-size: 16px;
+        }
+    }
+    .aside {
+        .box {
+            .background {
+                width: auto;
+                height: 40vh;
+            }
+        }
+    }
+}
+
+@media (min-width: 425px) and (max-width: 700px) {
+    .image {
+        height: 50vh;
+    }
+    .aside {
+        .box {
+            .background {
+                height:50vh;
+            }
+        }
+    }
+
+}

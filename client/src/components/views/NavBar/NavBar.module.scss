@@ -4,12 +4,21 @@
     background-color: $color-two;
     padding: 0 2%;
     height: 8vh;
+    .brand {
+        font-size: 40px;
+        letter-spacing: 2px;
+        font-family: $font_logo;
+        font-weight: 700;
+        transition: $transition;
+    }
 }
 
-.brand {
-    font-size: 40px;
-    letter-spacing: 2px;
-    font-family: $font_logo;
-    font-weight: 700;
-    transition: $transition;
+
+@media (min-width: 320px) and (max-width: 500px) {
+    .navBar {
+        .brand {
+            font-size: 25px;
+        }
+    }
+
 }

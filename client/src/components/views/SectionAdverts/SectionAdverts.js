@@ -7,9 +7,9 @@ const SectionAdverts = () => {
     const advert2 = 'advert2.jpg';
     return(
         <Container className={styles.container}>
-            <h2>Promotions</h2>
+            <h2 className = 'my-4'>Promotions</h2>
             <Row>
-                <Col md={6}>
+                <Col md={6} className = 'mb-3'>
                     <div className={styles.box}>
                         <img className={styles.img} src={IMGS_URL + advert1} alt="">
                         </img>

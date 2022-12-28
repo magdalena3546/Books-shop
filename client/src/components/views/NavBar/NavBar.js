@@ -9,8 +9,7 @@ const NavBar = () => {
     <Navbar className={styles.navBar}>
         <NavLink className={styles.brand} to="/">Bookworm</NavLink>
         <Nav className="ms-auto px-2">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/categories">Categories</NavLink>
+          <NavLink className="mx-2" to="/">Home</NavLink>
           <NavLink to="/cart"><FontAwesomeIcon icon={faCartShopping} /></NavLink>
         </Nav>
     </Navbar>

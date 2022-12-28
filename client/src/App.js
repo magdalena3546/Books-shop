@@ -9,6 +9,7 @@ import Product from './components/pages/Product/Product';
 import Cart from './components/pages/Cart/Cart';
 import Order from './components/pages/Order/Order';
 import SectionInformation from './components/views/SectionInformation/SectionInformation';
+import NotFound from './components/pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path='/product/:id' element = {<Product />} />
       <Route path='/cart' element = {<Cart />} />
       <Route path='/order' element = {<Order />} />
+      <Route path='*' element= {<NotFound />} />
     </Routes>
     <SectionInformation />
     <Footer></Footer>

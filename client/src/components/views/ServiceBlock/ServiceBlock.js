@@ -8,7 +8,7 @@ const ServiceBlock = () => {
         <Container className={styles.container}>
             <Row>
             <Col md={3}>
-                <Card>
+                <Card className = 'mb-4'>
                     <Card.Body>
                         <FontAwesomeIcon className={styles.icon} icon={faTruck} />
                         <Card.Title className="mt-2">Fast Free Delivery</Card.Title>
@@ -17,7 +17,7 @@ const ServiceBlock = () => {
                 </Card>
             </Col>
             <Col md={3}>
-                <Card>
+                <Card className = 'mb-4'>
                     <Card.Body>
                         <FontAwesomeIcon className={styles.icon} icon={faMessage} />
                         <Card.Title className="mt-2">24/7 Online Support</Card.Title>
@@ -26,7 +26,7 @@ const ServiceBlock = () => {
                 </Card>
             </Col>
             <Col md={3}>
-                <Card>
+                <Card className = 'mb-4'>
                     <Card.Body>
                         <FontAwesomeIcon className={styles.icon} icon={faCreditCard} />
                         <Card.Title className="mt-2">Easy Safe Payment</Card.Title>
@@ -35,7 +35,7 @@ const ServiceBlock = () => {
                 </Card>
             </Col>
             <Col md={3}>
-                <Card>
+                <Card className = 'mb-4'>
                     <Card.Body>
                         <FontAwesomeIcon className={styles.icon} icon={faRocket} />
                         <Card.Title className="mt-2">Easy Store Search</Card.Title>

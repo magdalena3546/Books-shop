@@ -7,3 +7,9 @@
 .input {
     width: 10%;
 }
+
+@media (min-width: 320px) and (max-width: 500px) {
+    .image {
+     width: auto;
+    }
+}

@@ -28,3 +28,16 @@
         }
     }
 }
+
+@media (min-width: 320px) and (max-width: 500px) {
+    .container{
+        .box{
+            height: 40vh;
+            width: auto;
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+}

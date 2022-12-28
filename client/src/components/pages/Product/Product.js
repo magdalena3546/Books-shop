@@ -80,7 +80,7 @@ const Product = () => {
                 </Col>
                 <Col md={7}><AmountWidget count = {count} handleCountChange = {handleCountChange} /></Col>
                 <Col md={6}>
-                    <Button onClick = {handleClick} className='mx-2' variant="outline-dark">Ad to cart</Button>
+                    <Button onClick = {handleClick} className='mx-2 mb-2' variant="outline-dark">Ad to cart</Button>
                 </Col>
             </Row>
         </Card>
