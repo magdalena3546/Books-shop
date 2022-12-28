@@ -29,6 +29,9 @@ let ProductsController = class ProductsController {
     async addProduct(item) {
         return await this.productService.addProduct(item);
     }
+    async deleteProduct(_id_) {
+        return await this.productService.deleteProduct(_id_);
+    }
 };
 __decorate([
     (0, common_1.Get)(':id'),
@@ -50,6 +53,14 @@ __decorate([
     __metadata("design:paramtypes", [create_product_dto_1.CreateProductDto]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "addProduct", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, common_1.HttpCode)(204),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductsController.prototype, "deleteProduct", null);
 ProductsController = __decorate([
     (0, common_1.Controller)('products'),
     __metadata("design:paramtypes", [products_service_1.ProductsDataService])

@@ -7,4 +7,5 @@ export declare class ProductsController {
     getProductById(id: string): Promise<ExternalProductDto>;
     getAllProducts(): Promise<ExternalProductDto[]>;
     addProduct(item: CreateProductDto): Promise<ExternalProductDto>;
+    deleteProduct(_id_: string): Promise<void>;
 }

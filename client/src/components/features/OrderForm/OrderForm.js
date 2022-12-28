@@ -56,14 +56,14 @@ const OrderForm = () => {
         };
         dispatch(addOrder(orderData));
         setStatus('loading');
-        
+
         fetch(`${API_URL}/orders`, options)
-     
             .then(res => {
                 if(res.status === 201) {
                     setStatus('success');
                     dispatch(clearCart());
                     localStorage.removeItem('cart');
+                  
                 } else if(res.status === 400){
                     setStatus('clientError');
                 }
@@ -71,6 +71,8 @@ const OrderForm = () => {
                     setStatus('serverError');
                 }
             });
+
+
     };
    
     return (

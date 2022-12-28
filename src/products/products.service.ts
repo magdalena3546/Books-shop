@@ -26,4 +26,8 @@ export class ProductsDataService {
 
     return this.productRepository.save(productToSave);
   }
+
+  async deleteProduct(id: string): Promise<void> {
+    this.productRepository.delete(id);
+  }
 }

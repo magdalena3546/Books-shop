@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   Param,
   ParseUUIDPipe,
   Post,
@@ -31,5 +33,11 @@ export class ProductsController {
     @Body() item: CreateProductDto,
   ): Promise<ExternalProductDto> {
     return await this.productService.addProduct(item);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  async deleteProduct(@Param('id') _id_: string): Promise<void> {
+    return await this.productService.deleteProduct(_id_);
   }
 }

@@ -33,6 +33,9 @@ let ProductsDataService = class ProductsDataService {
         productToSave.images = item.images;
         return this.productRepository.save(productToSave);
     }
+    async deleteProduct(id) {
+        this.productRepository.delete(id);
+    }
 };
 ProductsDataService = __decorate([
     (0, common_1.Injectable)(),

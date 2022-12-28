@@ -5,6 +5,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  HttpCode,
 } from '@nestjs/common';
 import { dateToArray } from 'src/shared/helpers/date.helpers';
 import { Order } from './db/orders.entity';
@@ -30,6 +31,7 @@ export class OrdersController {
   }
 
   @Post()
+  @HttpCode(201)
   async addOrder(@Body() item: CreateOrderDto): Promise<Order> {
     return await this.orderService.addOrder(item);
   }

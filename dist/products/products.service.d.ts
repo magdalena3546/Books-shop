@@ -7,4 +7,5 @@ export declare class ProductsDataService {
     getProductById(id: string): Promise<Product>;
     getAllProducts(): Promise<Product[]>;
     addProduct(item: CreateProductDto): Promise<Product>;
+    deleteProduct(id: string): Promise<void>;
 }

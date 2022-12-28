@@ -61,6 +61,7 @@ __decorate([
 ], OrdersController.prototype, "getAllOrders", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.HttpCode)(201),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
