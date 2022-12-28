@@ -5,4 +5,5 @@ export interface ExternalProductDto {
   count: number;
   description: string;
   mainImage: string;
+  images: Array<string>;
 }

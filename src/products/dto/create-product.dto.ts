@@ -11,7 +11,9 @@ export class CreateProductDto {
   @Min(0)
   count: number;
   @IsNotEmpty()
+  description: string;
+  @IsNotEmpty()
   mainImage: string;
   @IsArray()
-  images: string;
+  images: Array<string>;
 }

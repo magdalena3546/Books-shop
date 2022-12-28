@@ -13,13 +13,13 @@ import { ormConfig as config } from './ormconfig';
 import { ConnectionOptions } from 'typeorm';
 import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
-import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '..', 'client', 'build'),
     }),
     ProductsModule,
     OrdersModule,

@@ -21,6 +21,8 @@ export class ProductsDataService {
     productToSave.price = item.price;
     productToSave.count = item.count;
     productToSave.mainImage = item.mainImage;
+    productToSave.description = item.description;
+    productToSave.images = item.images;
 
     return this.productRepository.save(productToSave);
   }
